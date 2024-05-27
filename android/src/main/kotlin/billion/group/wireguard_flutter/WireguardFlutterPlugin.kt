@@ -18,6 +18,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.util.Log
+import androidx.fragment.app.FragmentActivity
 import com.beust.klaxon.Klaxon
 import com.wireguard.android.backend.*
 import com.wireguard.crypto.Key
@@ -47,7 +48,7 @@ class WireguardFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     private var backend: Backend? = null
     private var havePermission = false
     private lateinit var context: Context
-    private var activity: Activity? = null
+    private var activity: FragmentActivity? = null // Change to FragmentActivity
     private var config: com.wireguard.config.Config? = null
     private var tunnel: WireGuardTunnel? = null
     private val TAG = "NVPN"
@@ -66,7 +67,7 @@ class WireguardFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     }
 
     override fun onAttachedToActivity(activityPluginBinding: ActivityPluginBinding) {
-        this.activity = activityPluginBinding.activity as FlutterActivity
+        this.activity = activityPluginBinding.activity as? FragmentActivity
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
@@ -74,7 +75,7 @@ class WireguardFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     }
 
     override fun onReattachedToActivityForConfigChanges(activityPluginBinding: ActivityPluginBinding) {
-        this.activity = activityPluginBinding.activity as FlutterActivity
+        this.activity = activityPluginBinding.activity as? FragmentActivity
     }
 
     override fun onDetachedFromActivity() {
