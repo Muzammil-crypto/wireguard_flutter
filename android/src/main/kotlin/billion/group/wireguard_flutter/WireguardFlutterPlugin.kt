@@ -272,12 +272,17 @@ class WireguardFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     }
 
     private fun checkPermission() {
-        val intent = GoBackend.VpnService.prepare(this.activity)
-        if (intent != null) {
-            havePermission = false
-            this.activity?.startActivityForResult(intent, PERMISSIONS_REQUEST_CODE)
+        val activity = this.activity
+        if (activity != null) {
+            val intent = GoBackend.VpnService.prepare(activity)
+            if (intent != null) {
+                havePermission = false
+                activity.startActivityForResult(intent, PERMISSIONS_REQUEST_CODE)
+            } else {
+                havePermission = true
+            }
         } else {
-            havePermission = true
+            Log.e(TAG, "Activity is null, cannot check permissions")
         }
     }
 
