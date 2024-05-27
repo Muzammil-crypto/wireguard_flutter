@@ -18,7 +18,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.util.Log
-import androidx.fragment.app.FragmentActivity
 import com.beust.klaxon.Klaxon
 import com.wireguard.android.backend.*
 import com.wireguard.crypto.Key
@@ -272,22 +271,20 @@ class WireguardFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         }
     }
 
-
     private fun checkPermission() {
-        val fragmentActivity = activity as? FragmentActivity
-        if (fragmentActivity != null) {
-            val intent = GoBackend.VpnService.prepare(fragmentActivity)
+        val activity = this.activity
+        if (activity != null) {
+            val intent = GoBackend.VpnService.prepare(activity)
             if (intent != null) {
                 havePermission = false
-                fragmentActivity.startActivityForResult(intent, PERMISSIONS_REQUEST_CODE)
+                activity.startActivityForResult(intent, PERMISSIONS_REQUEST_CODE)
             } else {
                 havePermission = true
             }
         } else {
-            Log.e(TAG, "Activity is null")
+            Log.e(TAG, "Activity is null, cannot check permissions")
         }
     }
-
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)

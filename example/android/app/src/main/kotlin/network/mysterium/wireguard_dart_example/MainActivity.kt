@@ -1,8 +1,5 @@
-package billion.group.wireguard_flutter_example
+package network.mysterium.wireguard_dart_example
 
 import io.flutter.embedding.android.FlutterActivity
-
-import io.flutter.embedding.android.FlutterFragmentActivity
-
-class MainActivity: FlutterFragmentActivity() {
+class MainActivity: FlutterActivity() {
 }

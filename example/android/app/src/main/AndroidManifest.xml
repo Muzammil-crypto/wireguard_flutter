@@ -12,7 +12,7 @@
         android:label="wireguard_dart_example"
         android:icon="@mipmap/ic_launcher">
         <activity
-            android:name=".MainActivity"
+            android:name="network.mysterium.wireguard_dart_example.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
